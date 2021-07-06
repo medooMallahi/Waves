@@ -27,6 +27,7 @@ app.use(express.json());
 
 /// sanitize
 app.use(xss());
+
 app.use(mongoSanitize());
 
 // passport
@@ -50,7 +51,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3001;
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

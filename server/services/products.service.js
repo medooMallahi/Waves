@@ -4,10 +4,11 @@ const httpStatus = require("http-status");
 const mongoose = require("mongoose");
 
 const cloudinary = require("cloudinary").v2;
+const { clouddebugger } = require("googleapis/build/src/apis/clouddebugger");
 
 cloudinary.config({
-  cloud_name: "dxxrvghna",
-  api_key: "175755222729838",
+  cloud_name: "dugowatwq",
+  api_key: "968587457721439",
   api_secret: `${process.env.CN_API_SECRET}`,
 });
 

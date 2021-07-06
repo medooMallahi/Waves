@@ -10,7 +10,7 @@ const addTransaction = async (req) => {
 
   try {
     order = await payPalClient.client.execute(request);
-    //// error
+
     const transaction = new Transaction({
       userID: req.user._id,
       userEmail: req.user.email,
@@ -37,7 +37,6 @@ const addTransaction = async (req) => {
       { new: true }
     );
 
-    /// error
     return user;
   } catch (error) {
     throw error;

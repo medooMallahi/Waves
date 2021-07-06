@@ -5,23 +5,23 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { showToast } from "../utils/tools";
-import { clearNotification } from "../store/notifications";
+import { clearSuccessErrorNotification } from "../store/notifications";
 
 const MainLayout = (props) => {
   const dispatch = useDispatch();
   const notifications = useSelector((state) => state.entities.notifications);
 
   useEffect(() => {
-    if (notifications && notifications.error) {
+    if (notifications && notifications.error === true) {
       const msg = notifications.msg ? notifications.msg : "Error";
       showToast("ERROR", msg);
-      dispatch(clearNotification());
+      dispatch(clearSuccessErrorNotification());
     }
 
-    if (notifications && notifications.success) {
-      const msg = notifications.msg ? notifications.msg : "Done!";
+    if (notifications && notifications.success === true) {
+      const msg = notifications.msg ? notifications.msg : "Done!!!!";
       showToast("SUCCESS", msg);
-      dispatch(clearNotification());
+      dispatch(clearSuccessErrorNotification());
     }
   }, [notifications, dispatch]);
 

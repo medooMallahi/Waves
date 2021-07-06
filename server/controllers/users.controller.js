@@ -40,6 +40,7 @@ const usersController = {
     }
   },
   async verifyAccount(req, res, next) {
+    console.log("verified");
     try {
       const token = await userService.validateToken(req.query.validation);
       const user = await userService.findUserById(token.sub);

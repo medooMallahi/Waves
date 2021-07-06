@@ -29,6 +29,14 @@ const slice = createSlice({
     userprofileeUpdated: (state, action) => {
       state.data = action.payload;
     },
+    userAddedToCart: (state, action) => {
+      state.cart.push(action.payload.item);
+    },
+    purchaseSucceded: (state, action) => {
+      console.log(action.payload, "Payload");
+      state.cart = [];
+      state.data.history = action.payload;
+    },
     userCleared: (state, action) => initialState(),
   },
 });
@@ -38,19 +46,21 @@ const {
   userCleared,
   userAuthenticatedFailed,
   userprofileeUpdated,
+  userAddedToCart,
+  purchaseSucceded,
 } = slice.actions;
 
-export const loginUser = (data) =>
+export const registerUser = (data) =>
   apiCallBegan({
-    url: "/auth/signin",
+    url: "/auth/register",
     method: "post",
     data,
     onSuccess: userAuthenticated.type,
   });
 
-export const registerUser = (data) =>
+export const loginUser = (data) =>
   apiCallBegan({
-    url: "/auth/register",
+    url: "/auth/signin",
     method: "post",
     data,
     onSuccess: userAuthenticated.type,
@@ -75,11 +85,6 @@ export const userIsAuth = () => (dispatch) => {
   );
 };
 
-export const userSignOut = () => {
-  removeTokenCookie();
-  return userCleared();
-};
-
 export const updateUserProofile = (data) =>
   apiCallBegan({
     url: "/users/profile",
@@ -98,4 +103,21 @@ export const updateEmail = (data) =>
     onSuccess: userAuthenticated.type,
   });
 
+export const userSignOut = () => {
+  removeTokenCookie();
+  return userCleared();
+};
+
+export const addToCart = (item) => userAddedToCart({ item });
+
+export const PurchaseSuccess = (data) => {
+  return apiCallBegan({
+    url: "/transaction/",
+    method: "post",
+    data,
+    headers: getAuthHeader(),
+    msgOnSuccess: "Thank you for your purchase",
+    onSuccess: purchaseSucceded.type,
+  });
+};
 export default slice.reducer;

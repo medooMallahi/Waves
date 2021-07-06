@@ -53,6 +53,7 @@ const productsController = {
     }
   },
   async picUpload(req, res, next) {
+    console.log("reacced");
     try {
       const pic = await productsService.picUpload(req);
       res.json(pic);
